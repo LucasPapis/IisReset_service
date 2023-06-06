@@ -3,6 +3,7 @@ using System.ServiceModel;
 using System.ServiceProcess;
 using System;
 using IisReset.Services;
+using System.Net.Http.Headers;
 
 namespace IisReset
 {

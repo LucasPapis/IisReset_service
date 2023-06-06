@@ -8,6 +8,7 @@ namespace IisReset.Interfaces
     [ServiceContract]
     public interface IService
     {
+
         [OperationContract]
         [WebInvoke(Method = "GET", 
             UriTemplate = "/resetiis", 
