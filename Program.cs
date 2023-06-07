@@ -3,7 +3,7 @@ using System.ServiceModel;
 using System.ServiceProcess;
 using System;
 using IisReset.Services;
-using System.Net.Http.Headers;
+using System.Web;
 
 namespace IisReset
 {
@@ -12,7 +12,7 @@ namespace IisReset
         static void Main(string[] args)
         {
 			try
-			{
+            {
                 ServiceHost selfHost = new ServiceHost(typeof(Service), new Uri("http://localhost:44315"));
                 var processo = Process.GetProcessesByName("WCFService");
                 if (processo != null)

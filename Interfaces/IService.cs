@@ -1,5 +1,7 @@
 ﻿using IisReset.Models;
+using IisReset.Services;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
@@ -8,7 +10,6 @@ namespace IisReset.Interfaces
     [ServiceContract]
     public interface IService
     {
-
         [OperationContract]
         [WebInvoke(Method = "GET", 
             UriTemplate = "/resetiis", 

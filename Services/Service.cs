@@ -7,6 +7,7 @@ using System.ServiceProcess;
 
 namespace IisReset.Services
 {
+    [CORSSupportBehavior]
     public class Service : IService
     {
         public List<WinServices> All()
@@ -32,7 +33,6 @@ namespace IisReset.Services
         {
             ProcessStartInfo ProcessInfo;
             string Command = "IISRESET";
-
             ProcessInfo = new ProcessStartInfo("cmd.exe", "/K " + Command);
             //ProcessInfo.CreateNoWindow = true;
             ProcessInfo.UseShellExecute = true;
@@ -41,3 +41,13 @@ namespace IisReset.Services
         }
     }
 }
+
+//HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+//if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
+//{
+//    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE");
+
+//    HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
+//    HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
+//    HttpContext.Current.Response.End();
+//}
