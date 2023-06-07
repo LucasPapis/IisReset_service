@@ -27,5 +27,14 @@ namespace IisReset.Interfaces
            ResponseFormat = WebMessageFormat.Json)]
         List<WinServices> All();
 
+        [OperationContract]
+        [WebInvoke(
+           Method = "POST",
+           UriTemplate = "/servicekill/{service}",
+           BodyStyle = WebMessageBodyStyle.Wrapped,
+           RequestFormat = WebMessageFormat.Json,
+           ResponseFormat = WebMessageFormat.Json)]
+        Response Servicekill(string service);
+
     }
 }

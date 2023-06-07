@@ -1,6 +1,7 @@
 ﻿using IisReset.Interfaces;
 using IisReset.Models;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.ServiceProcess;
@@ -29,6 +30,36 @@ namespace IisReset.Services
             return list;
         }
 
+        //Bolar um endpoint para stopar o serviço..
+        public Response Servicekill(string service)
+        {
+            //Process[] requiredProcess = Process.GetProcessesByName(process);
+            //foreach (Process p in requiredProcess)
+            //{
+            //    p.Kill();
+            //}
+            ServiceController serviceToKill = new ServiceController(service);
+            try
+            {
+                serviceToKill.Refresh();
+                if (serviceToKill.Status == ServiceControllerStatus.Running)
+                {
+                    serviceToKill.Stop();
+                    return new Response { response = $"O serviço {service} foi finalizado." };
+                    //service.WaitForStatus(ServiceControllerStatus.Stopped);
+                }
+                else
+                {
+                    throw new Exception($"O serviço {service} já está parado.");
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            
+        }
+
         public Response ReiniciarIIS()
         {
             ProcessStartInfo ProcessInfo;
@@ -37,7 +68,7 @@ namespace IisReset.Services
             //ProcessInfo.CreateNoWindow = true;
             ProcessInfo.UseShellExecute = true;
             Process.Start(ProcessInfo);
-            return new Response { response = "IIS Reiniciando..." };
+            return new Response { response = "IIS Reiniciado." };
         }
     }
 }
