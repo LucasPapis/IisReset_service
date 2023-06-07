@@ -33,11 +33,6 @@ namespace IisReset.Services
         //Bolar um endpoint para stopar o serviço..
         public Response Servicekill(string service)
         {
-            //Process[] requiredProcess = Process.GetProcessesByName(process);
-            //foreach (Process p in requiredProcess)
-            //{
-            //    p.Kill();
-            //}
             ServiceController serviceToKill = new ServiceController(service);
             try
             {
@@ -45,12 +40,12 @@ namespace IisReset.Services
                 if (serviceToKill.Status == ServiceControllerStatus.Running)
                 {
                     serviceToKill.Stop();
-                    return new Response { response = $"O serviço {service} foi finalizado." };
+                    return new Response { response = $"O serviço {service} está sendo finalizado..." };
                     //service.WaitForStatus(ServiceControllerStatus.Stopped);
                 }
                 else
                 {
-                    throw new Exception($"O serviço {service} já está parado.");
+                    throw new Exception($"O serviço {service} já está parado...");
                 }
             }
             catch
@@ -58,6 +53,28 @@ namespace IisReset.Services
                 throw;
             }
             
+        }
+        public Response ServiceStart(string service)
+        {
+            ServiceController serviceToKill = new ServiceController(service);
+            try
+            {
+                serviceToKill.Refresh();
+                if (serviceToKill.Status == ServiceControllerStatus.Stopped)
+                {
+                    serviceToKill.Start();
+                    return new Response { response = $"O serviço {service} está sendo iniciado..." };
+                    //service.WaitForStatus(ServiceControllerStatus.Stopped);
+                }
+                else
+                {
+                    throw new Exception($"O serviço {service} já está rodando...");
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public Response ReiniciarIIS()
@@ -70,6 +87,7 @@ namespace IisReset.Services
             Process.Start(ProcessInfo);
             return new Response { response = "IIS Reiniciado." };
         }
+
     }
 }
 
